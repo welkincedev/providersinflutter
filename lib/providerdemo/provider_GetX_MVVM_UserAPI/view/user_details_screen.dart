@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:statemanagement/providerdemo/provider_GetX_MVVM_UserAPI/model/usermodal.dart';
 import '../viewmodel/user_controller.dart';
 
-class UserListScreen extends StatelessWidget {
+class UserDetailsScreen extends StatelessWidget {
   // Register the controller once here
   final ctrl = Get.put(UserController());
 
-  UserListScreen({super.key});
+  UserDetailsScreen({super.key, required User user});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,7 @@ class UserListScreen extends StatelessWidget {
                     color: Colors.deepPurple,
                   ),
 
-                  onTap: () => Get.to(() => UserDetailScreen(user: user)),
+                  onTap: () => Get.to(() => UserDetailsScreen(user: user)),
                 ),
               );
             },

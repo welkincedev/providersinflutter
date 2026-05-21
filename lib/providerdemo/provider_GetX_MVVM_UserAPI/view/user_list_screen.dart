@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:statemanagement/providerdemo/provider_GetX_MVVM_UserAPI/viewmodel/user_controller.dart';
+import 'package:statemanagement/providerdemo/provider_GetX_MVVM_UserAPI/view/user_details_screen.dart';
 
 class UserListScreen extends StatelessWidget {
+
   UserListScreen({super.key});
 
   final ctrl = Get.put(UserController());
@@ -24,27 +26,20 @@ class UserListScreen extends StatelessWidget {
         ],
       ),
       body: Obx(() {
-
         // ── Loading spinner ──
 
         if (ctrl.isLoading.value) {
-
           return const Center(child: CircularProgressIndicator());
-
         }
 
         // ── Error message ──
 
         if (ctrl.errorMsg.value.isNotEmpty) {
-
           return Center(
-
             child: Column(
-
               mainAxisSize: MainAxisSize.min,
 
               children: [
-
                 const Icon(Icons.error_outline, size: 48, color: Colors.red),
 
                 const SizedBox(height: 12),
@@ -54,31 +49,21 @@ class UserListScreen extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 ElevatedButton(
-
                   onPressed: ctrl.fetchUsers,
 
                   child: const Text('Retry'),
-
                 ),
-
               ],
-
             ),
-
           );
-
         }
-
-
 
         // ── User list ──
 
         return RefreshIndicator(
-
           onRefresh: ctrl.fetchUsers,
 
           child: ListView.separated(
-
             padding: const EdgeInsets.all(12),
 
             itemCount: ctrl.users.length,
@@ -86,64 +71,44 @@ class UserListScreen extends StatelessWidget {
             separatorBuilder: (_, __) => const SizedBox(height: 8),
 
             itemBuilder: (_, index) {
-
               final user = ctrl.users[index];
 
               return Card(
-
                 child: ListTile(
-
                   leading: CircleAvatar(
-
                     backgroundColor: Colors.deepPurple,
 
                     child: Text(
-
                       user.name[0],
 
                       style: const TextStyle(
+                        color: Colors.white,
 
-                          color: Colors.white,
-
-                          fontWeight: FontWeight.bold),
-
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-
                   ),
 
                   title: Text(
-
                     user.name,
 
                     style: const TextStyle(fontWeight: FontWeight.w600),
-
                   ),
 
                   subtitle: Text(user.email),
 
-                  trailing: const Icon(Icons.chevron_right, color: Colors.deepPurple),
+                  trailing: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.deepPurple,
+                  ),
 
-                  onTap: () => Get.to(() => UserDetailScreen(user: user)),
-
+                  onTap: () => Get.to(() => UserDetailsScreen(user: user)),
                 ),
-
               );
-
             },
-
           ),
-
         );
-
       }),
-
     );
-
   }
-
 }
-
-
-
-
-
